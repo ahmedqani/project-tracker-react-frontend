@@ -10,9 +10,7 @@ interface LoginProps{
     logoutUser: Function
 }
 
-const _Login: React.FunctionComponent<LoginProps> = ({
-                                                         userLogin
-                                                     })=> {
+const _Login: React.FunctionComponent<LoginProps> = (props)=> {
     const [username,setUsername] = useState<string>("")
     const [password,setPassword] = useState<string>("")
 
@@ -23,14 +21,14 @@ const _Login: React.FunctionComponent<LoginProps> = ({
    const handleChangePassword = (e: any):void => {
        setPassword(e.target.value)
     }
-    const handleSubmitLogin = (e: any):void => {
+    let handleSubmitLogin = (e: any): void => {
         e.preventDefault()
-        let user:LoginType = {
+        let user: LoginType = {
             username,
             password
         }
-        loginUser(user)
-        console.log(userLogin)
+        props.loginUser(user)
+        console.log(props.loginUser(user))
 
     }
     return (

@@ -17,7 +17,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter >
             <Application/>
-            {/*<App />*/}
+            <App />
         </BrowserRouter>
     </Provider>
     ,
