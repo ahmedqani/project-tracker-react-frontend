@@ -13,13 +13,14 @@ export interface LoginUserAction{
 export interface LogoutUserAction{
     type: ActionTypes.logout
 }
-export interface Login{
+export interface LoginType{
     username:string;
     password:string;
 }
 
-export const loginUser = (user:Login) => {
+export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
+        console.log("In the Action Login !!!"+user)
         const resp = await axios.post<User>(localDBUrl+"login",user)
         localStorage.setItem("currentUser", JSON.stringify(resp.data))
         console.log(localStorage.getItem("currentUser"))

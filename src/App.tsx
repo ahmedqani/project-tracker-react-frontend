@@ -3,11 +3,10 @@ import './App.css';
 import {connect} from "react-redux";
 import {fetchAllUsers, User, logoutUser,loginUser } from "./redux/actions"
 import {StoreState} from "./redux/reducers";
-import Login from "./component/Login";
 
 interface AppProps {
     users: User[];
-    currentUser: User;
+    userLogin: User;
     fetchAllUsers: Function;
     loginUser: Function;
     logoutUser: Function
@@ -61,7 +60,7 @@ class _App extends React.Component<AppProps>{
     }
     onClickGetCurrentUser = (e: any):void =>{
        // e.target.value = this.props.currentUser.username
-        console.log(this.props.currentUser)
+        console.log(this.props.userLogin)
 
 }
 
@@ -82,9 +81,9 @@ class _App extends React.Component<AppProps>{
                </form>
            </div>
             <h1>CURRENT USER IS:</h1>
-            <h1>
-                {this.props.currentUser.username ? this.props.currentUser.username : ""}
-            </h1>
+            {/*<h1>*/}
+            {/*    {this.props.userLogin.username ? this.props.userLogin.username : ""}*/}
+            {/*</h1>*/}
             <button onClick={this.onClickGetCurrentUser}>Get Current User (Check Console)</button>
             <br/>
             <button onClick={this.onClickFetchUsers}>FETCH USERS</button>
@@ -93,8 +92,8 @@ class _App extends React.Component<AppProps>{
     }
 }
 
-const  mapStateToProps = ({users, currentUser}: StoreState):{users : User[], currentUser : User} => {
-return {users, currentUser}
+const  mapStateToProps = ({users, userLogin}: StoreState):{users : User[], userLogin : User} => {
+return {users, userLogin}
 }
 
 export const App = connect(
