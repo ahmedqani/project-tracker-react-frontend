@@ -49,7 +49,6 @@ const _Signup: React.FunctionComponent<SignupProps> = (props) => {
                     <input type="text" className="form-control" onChange={(e) => setFirstname(e.target.value)}
                            placeholder="First name" name="firstname" required/>
                 </div>
-
                 <div className="form-group">
                     <label>Last name</label>
                     <input type="text" className="form-control" placeholder="Last name"

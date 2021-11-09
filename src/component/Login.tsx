@@ -34,8 +34,9 @@ const _Login: React.FunctionComponent<LoginProps> = (props) => {
         }
         props.loginUser(user)
         if (props.userLogin.user_id !== 0){
-            navigate(`/home`)
-        } else {
+            navigate(`/login`)
+        }
+        if(props.userLogin.user_id === 0) {
             setWarning("Please make sure the username and password correct")
         }
     }

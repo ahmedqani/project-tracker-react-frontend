@@ -1,4 +1,4 @@
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import classes from './MainHeader.module.css';
 import React, {useEffect, useState} from "react";
 import {loginUser, logoutUser, User} from "../../redux/actions";
@@ -13,7 +13,12 @@ interface MainHeaderProps {
 }
 
 const _MainHeader: React.FunctionComponent<MainHeaderProps> = props => {
+    const navigate = useNavigate();
+
     useEffect(() => {
+        if (props.userLogin.user_id === 0) {
+            navigate("/login");
+        }
         if (props.userLogin.user_id !== 0) {
             props.setLogged(true);
         }
@@ -42,11 +47,14 @@ const _MainHeader: React.FunctionComponent<MainHeaderProps> = props => {
                             SignUp
                         </NavLink>
                         </li>: ""}
-                    <li>
-                        <NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='/users'>
-                            All Users
-                        </NavLink>
-                    </li>
+                    {props.userLogin.userRole ==="ADMIN" ?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='/admin_all_users'>
+                        All Users
+                    </NavLink>
+                    </li>: ""}
+                    {props.userLogin.userRole ==="ADMIN" ?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='admin_all_projects'>
+                        All Projects
+                    </NavLink>
+                    </li>: ""}
                     <li>{props.logged ? <NavLink className={(navData) => (navData.isActive ? classes.active : "")}
                                                  onClick={onClickLogoutUser} to={`/login`}>
                         Logout

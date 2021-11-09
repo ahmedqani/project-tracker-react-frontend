@@ -3,27 +3,26 @@ import {StoreState} from "../redux/reducers";
 import {connect} from "react-redux";
 import {UserHomeComponent} from "../component/UserHomeComponent";
 import {loginUser, logoutUser,User} from "../redux/actions";
-import {Route, Routes} from 'react-router-dom';
 import SideBar from "../component/layout/SideBar";
-import "../component/layout/Layout.module.css"
 import classes from "../component/layout/Layout.module.css";
 
 
 
-interface HomeProps{
+interface UserTasksProps{
     userLogin: User;
 }
 
-const _Home: React.FunctionComponent<HomeProps> = props => {
+const _UserTasks: React.FunctionComponent<UserTasksProps> = props => {
     useEffect(() => {
     },[])
 
     return (
         <div>
             <SideBar/>
-            <section className={"sideBarContent"}>
-                <UserHomeComponent/>
+            <section className={classes.sideBarContent}>
+                <p>USER TASKS GOES HERE!!!</p>
             </section>
+
         </div>
     );
 }
@@ -31,7 +30,7 @@ const  mapStateToProps = ({userLogin}: StoreState):{userLogin : User;} => {
     return {userLogin}
 }
 
-export const Home = connect(
+export const UserTasks = connect(
     mapStateToProps,
     {logoutUser,loginUser}
-)(_Home)
+)(_UserTasks)
