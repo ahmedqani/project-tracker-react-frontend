@@ -3,7 +3,7 @@ import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 import {User} from "./users";
 
-// const urlApi = `http://52.14.40.145:8080/api/users/all` ;
+const urlApi = `http://52.14.40.145:8080/api/users/all` ;
 const localDBUrl = `http://localhost:8090/api/users/`;
 
 export interface LoginUserAction{
@@ -11,7 +11,9 @@ export interface LoginUserAction{
     payload: User;
 }
 export interface LogoutUserAction{
-    type: ActionTypes.logout
+    type: ActionTypes.logout;
+    payload: User;
+
 }
 export interface LoginType{
     username:string;
@@ -22,8 +24,9 @@ export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
         console.log("In the Action Login !!!"+user)
         const resp = await axios.post<User>(localDBUrl+"login",user)
-        localStorage.setItem("currentUser", JSON.stringify(resp.data))
-        console.log(localStorage.getItem("currentUser"))
+        sessionStorage.setItem("currentUser", JSON.stringify(resp.data))
+        sessionStorage.setItem("logged", "true")
+        console.log(sessionStorage.getItem("currentUser"))
         dispatch<LoginUserAction>({
             type: ActionTypes.login,
             payload: resp.data
@@ -31,7 +34,20 @@ export const loginUser = (user:LoginType) => {
     }
 }
 export const logoutUser = () => {
+    sessionStorage.clear()
+    let user :User = {
+        user_id: 0,
+        email: "",
+        firstname: "",
+        lastname : "",
+        password : "",
+        profpic  : "",
+        userRole: "",
+        username : ""
+    }
     return (dispatch: Dispatch) => dispatch<LogoutUserAction>({
-        type: ActionTypes.logout
+        type: ActionTypes.logout,
+        payload: user
+
     })
 }

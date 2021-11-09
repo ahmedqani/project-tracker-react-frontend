@@ -4,11 +4,12 @@ import {User} from "../actions";
 import {loginReducer} from "./login";
 
 export interface StoreState{
-    users: User[]
-    userLogin: User
+    users: User[];
+    userLogin: User;
+
 }
 
 export const reducers = combineReducers<StoreState>({
     users: usersReducer,
-    userLogin: loginReducer
+    userLogin: loginReducer,
 });

@@ -22,7 +22,7 @@ export interface FetchAllUsersAction{
 
 export const fetchAllUsers = () => {
     return async (dispatch: Dispatch) => {
-        const resp = await axios.get<User[]>(urlApi)
+        const resp = await axios.get<User[]>(localDBUrl)
         dispatch<FetchAllUsersAction>({
             type: ActionTypes.fetchaAllUsers,
             payload: resp.data

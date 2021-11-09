@@ -1,12 +1,20 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 
 import classes from './Layout.module.css';
-import MainNavigation from './MainHeader';
+import {MainHeader} from './MainHeader';
 
 const Layout: React.FunctionComponent<{}> = (props) => {
+    const [logged , setLogged] = useState<boolean>(false)
+    useEffect(() => {
+        console.log(logged)
+    },[logged])
+
+    const changeLogged = (e: any) => {
+        setLogged(true);
+    }
     return (
         <Fragment>
-            <MainNavigation/>
+            <MainHeader logged = {logged} setLogged ={setLogged}/>
             <main className={classes.main}>{props.children}</main>
         </Fragment>
     );

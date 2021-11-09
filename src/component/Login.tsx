@@ -2,58 +2,67 @@ import React, {useState} from 'react';
 import {loginUser, logoutUser, User} from "../redux/actions";
 import {LoginType} from "../redux/actions";
 import {StoreState} from "../redux/reducers";
-import {connect, Selector} from "react-redux";
+import {connect} from "react-redux";
+import {useNavigate} from 'react-router-dom';
 
-interface LoginProps{
+
+interface LoginProps {
     userLogin: User;
     loginUser: Function;
     logoutUser: Function
 }
 
-const _Login: React.FunctionComponent<LoginProps> = (props)=> {
-    const [username,setUsername] = useState<string>("")
-    const [password,setPassword] = useState<string>("")
+const _Login: React.FunctionComponent<LoginProps> = (props) => {
+    const [username, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+    const [warning,setWarning] = useState("");
+    const navigate = useNavigate();
 
 
-    const handleChangeUserName = (e: any):void => {
+    const handleChangeUserName = (e: any): void => {
         setUsername(e.target.value)
     }
-   const handleChangePassword = (e: any):void => {
-       setPassword(e.target.value)
+    const handleChangePassword = (e: any): void => {
+        setPassword(e.target.value)
     }
-    let handleSubmitLogin = (e: any): void => {
+
+    const handleSubmitLogin = (e: any): void => {
         e.preventDefault()
         let user: LoginType = {
             username,
             password
         }
         props.loginUser(user)
-        console.log(props.loginUser(user))
-
+        if (props.userLogin.user_id !== 0){
+            navigate(`/home`)
+        } else {
+            setWarning("Please make sure the username and password correct")
+        }
     }
     return (
         <div>
             <form onSubmit={handleSubmitLogin}>
-                <label>
-                    UserName:
-                    <input type="text" value={username} onChange={handleChangeUserName} />
-                </label>
-                <label>
-                    UserName:
-                    <input type="text" value={password} onChange={handleChangePassword} />
-                </label>
-                <input type="submit" value="Submit" />
+                <div className={"text-danger"}>{warning}</div>
+                <div className="form-group">
+                    <label>Username:</label>
+                    <input type="text" className="form-control" value={username} onChange={handleChangeUserName} required/>
+                </div>
+                <div className="form-group">
+                    <label>Password:</label>
+                    <input type="text" className="form-control" value={password} onChange={handleChangePassword} required/>
+                </div>
+                <br/>
+                <input className="form-control btn btn-primary btn-block" type="submit" value="Submit"/>
             </form>
         </div>
     );
 }
 
-
-const  mapStateToProps = ({userLogin}: StoreState):{userLogin : User} => {
+const mapStateToProps = ({userLogin}: StoreState): { userLogin: User } => {
     return {userLogin}
 }
 
 export const Login = connect(
     mapStateToProps,
-    {logoutUser,loginUser}
+    {logoutUser, loginUser}
 )(_Login)
