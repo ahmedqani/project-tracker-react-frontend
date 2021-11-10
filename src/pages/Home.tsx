@@ -5,7 +5,6 @@ import {UserHomeComponent} from "../component/UserHomeComponent";
 import {loginUser, logoutUser,User} from "../redux/actions";
 import {Route, Routes} from 'react-router-dom';
 import SideBar from "../component/layout/SideBar";
-import "../component/layout/Layout.module.css"
 import classes from "../component/layout/Layout.module.css";
 
 
@@ -21,7 +20,7 @@ const _Home: React.FunctionComponent<HomeProps> = props => {
     return (
         <div>
             <SideBar/>
-            <section className={"sideBarContent"}>
+            <section className={classes.sideBarContent}>
                 <UserHomeComponent/>
             </section>
         </div>

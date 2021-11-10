@@ -33,8 +33,10 @@ const _Login: React.FunctionComponent<LoginProps> = (props) => {
             password
         }
         props.loginUser(user)
-        if (props.userLogin.user_id !== 0){
-            navigate(`/login`)
+        if (sessionStorage.getItem("logged") === "true"){
+            console.log(sessionStorage.getItem("logged")    )
+            // @ts-ignore
+            navigate(`/login`,true)
         }
         if(props.userLogin.user_id === 0) {
             setWarning("Please make sure the username and password correct")

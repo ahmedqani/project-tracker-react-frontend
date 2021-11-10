@@ -14,6 +14,8 @@ export interface User{
     profpic  : string;
     userRole: string;
     username : string;
+    user_projects?: [];
+    user_tasks?: [];
 }
 export interface FetchAllUsersAction{
     type: ActionTypes.fetchaAllUsers;

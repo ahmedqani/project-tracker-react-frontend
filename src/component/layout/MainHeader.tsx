@@ -16,11 +16,12 @@ const _MainHeader: React.FunctionComponent<MainHeaderProps> = props => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (props.userLogin.user_id === 0) {
+        if (props.logged) {
             navigate("/login");
         }
         if (props.userLogin.user_id !== 0) {
             props.setLogged(true);
+            navigate("/home");
         }
     }, [props.userLogin])
 
@@ -47,12 +48,16 @@ const _MainHeader: React.FunctionComponent<MainHeaderProps> = props => {
                             SignUp
                         </NavLink>
                         </li>: ""}
-                    {props.userLogin.userRole ==="ADMIN" ?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='/admin_all_users'>
-                        All Users
+                    {props.userLogin.userRole ==="ADMIN" && props.logged ?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='/admin_all_users'>
+                        Admin Users
                     </NavLink>
                     </li>: ""}
-                    {props.userLogin.userRole ==="ADMIN" ?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='admin_all_projects'>
-                        All Projects
+                    {props.userLogin.userRole ==="ADMIN" && props.logged?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='admin_all_projects'>
+                        Admin Projects
+                    </NavLink>
+                    </li>: ""}
+                    {props.userLogin.userRole ==="ADMIN" && props.logged?<li><NavLink className={(navData) => (navData.isActive ? classes.active : '')} to='admin_all_tasks'>
+                        Admin Tasks
                     </NavLink>
                     </li>: ""}
                     <li>{props.logged ? <NavLink className={(navData) => (navData.isActive ? classes.active : "")}

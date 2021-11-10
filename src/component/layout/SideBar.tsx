@@ -41,11 +41,6 @@ const SideBar: React.FC<any> = ({updateClickedPage}: any) => {
                         </NavLink>
                     </li>
                     <li className={"nav-text"}>
-                        <NavLink className={(navData) => (navData.isActive ? classes.active : '')} to={"/user_projects"}>
-                            <IoIcons.IoIosPaper/>All Projects
-                        </NavLink>
-                    </li>
-                    <li className={"nav-text"}>
                         <NavLink className={(navData) => (navData.isActive ? classes.active : '')} to={"/user_tasks"}>
                             <FaIcons.FaCartPlus/>Your Tasks
                         </NavLink>
@@ -60,20 +55,9 @@ const SideBar: React.FC<any> = ({updateClickedPage}: any) => {
                             <FaIcons.FaEnvelopeOpenText/>New Task
                         </NavLink>
                     </li>
-                    <li className={"nav-text"}>
-                        <NavLink className={(navData) => (navData.isActive ? classes.active : '')} to={"/edit_project"}>
-                            <IoIcons.IoMdHelpCircle/>Edit Project
-                        </NavLink>
-                    </li>
-                    <li className={"nav-text"}>
-                        <NavLink className={(navData) => (navData.isActive ? classes.active : '')} to={"/edit_task"}>
-                            <IoIcons.IoMdHelpCircle/>Edit Task
-                        </NavLink>
-                    </li>
                 </ul>
             </nav>
         </IconContext.Provider>
-
     );
 }
 
