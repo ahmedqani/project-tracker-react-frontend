@@ -21,7 +21,6 @@ const _NewProject: React.FunctionComponent<NewProjectProps> = (props) => {
     const [endDate, setEndtDate] = useState(new Date());
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/project/save`;
     const urlApi = `http://52.14.40.145:8080/api/project/save` ;
 
     const saveProject = async (e: any) => {
@@ -32,7 +31,7 @@ const _NewProject: React.FunctionComponent<NewProjectProps> = (props) => {
             start_project_date : startDate,
             end_project_date : endDate
         }
-        const resp = await axios.post<Project>(localDBUrl, temp);
+        const resp = await axios.post<Project>(urlApi, temp);
         if (resp.data.project_id !== 0) {
             setWarning(resp.data.project_name + " Was Created")
         } else {

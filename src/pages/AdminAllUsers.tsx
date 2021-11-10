@@ -25,7 +25,7 @@ const _AdminAllUsers: React.FunctionComponent<AllUsersProps> = (props)=> {
     const [userRole, setUserRole] = useState("");
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/users/update/`;
+    const localDBUrl = `http://52.14.40.145:8080/api/users/update/`;
 
     useEffect(()=>{
 

@@ -21,7 +21,7 @@ const _UserHomeComponent: React.FunctionComponent<UserHomeComponentProps> = prop
     const [userRole, setUserRole] = useState(props.userLogin.userRole);
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/users/update/`;
+    const localDBUrl = `http://52.14.40.145:8080/api/users/update/`;
 
     const renderPic = (): string => {
         if (profpic == null || profpic === "") {

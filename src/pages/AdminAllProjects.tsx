@@ -20,9 +20,10 @@ const _AdminAllProjects: React.FunctionComponent<AdminAllProjectsProps> = (props
     const [project_name, setProject_name] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndtDate] = useState(new Date());
+    const [userToAdd, setUserToAdd] = useState("")
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/project/update/`;
+    const localDBUrl = `http://52.14.40.145:8080/api/project/update/`;
 
     useEffect(()=>{
 
@@ -53,6 +54,17 @@ const _AdminAllProjects: React.FunctionComponent<AdminAllProjectsProps> = (props
             setWarning("Project Couldn't be Updated!! something went wrong!!!")
         }
     }
+
+    const addUserToProject = async (e:any) => {
+        const resp = await axios.post<Project>("http://52.14.40.145:8080/api/project/adduser/"+e+"/"+userToAdd);
+        console.log(resp.data)
+        if (resp.data.project_id !== 0) {
+            setWarning(resp.data.project_name + " Was Updated!! ")
+        } else {
+            setWarning("Project Couldn't be Updated!! something went wrong!!!")
+        }
+    }
+
     const setProjectToUpdateState = (project:any) =>{
         setProject_id(project.project_id);
         setProject_name(project.project_name);
@@ -66,7 +78,7 @@ const _AdminAllProjects: React.FunctionComponent<AdminAllProjectsProps> = (props
     const renderUpdateProjectForm = () : JSX.Element => {
         console.log("Update Project Form Called!!")
         return (
-            <div  key={project_id}>
+            <div className={"border border-info mx-auto"}  key={project_id} style={{border:"3em"}}>
                 <div>
                     <form onSubmit={updateProject}>
                         <h3>Update Project Information</h3>
@@ -99,7 +111,16 @@ const _AdminAllProjects: React.FunctionComponent<AdminAllProjectsProps> = (props
                         </div>
                         <br/>
                         <input type="submit" className="form-control btn btn-primary btn-block" value={"Update Project"}/>
+
+                        <div className="form-group">
+                            <label>User ID</label>
+                            <input type="number" className="form-control" onChange={(e) => setUserToAdd(e.target.value)}
+                                   name="task_note" value={userToAdd} required/>
+                                   <br/>
+                            <Button onClick={ ()=> addUserToProject(project_id)} variant="primary" > Add User To Project</Button>
+                        </div>
                     </form>
+                    <br/>
                 </div>
             </div>
 

@@ -21,9 +21,10 @@ const _AdminAllTasks: React.FunctionComponent<AdminAllTasksProps> = (props)=> {
     const [task_note, setTask_note] = useState("");
     const [task_start_date, setTask_start_date] = useState(new Date());
     const [task_end_date, setTask_end_date] = useState(new Date());
+    const [projectToAdd, setProjectToAdd] = useState("")
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/project/update/`;
+    const localDBUrl = `http://52.14.40.145:8080/api/project/update/`;
 
     useEffect(()=>{
 
@@ -57,21 +58,31 @@ const _AdminAllTasks: React.FunctionComponent<AdminAllTasksProps> = (props)=> {
             setWarning("Task Couldn't be Updated!! something went wrong!!!")
         }
     }
-    const setTaskToUpdateState = (task:any) =>{
+    const setTaskToUpdateState = (task:any|Task) =>{
         setTask_id(task.task_id);
         setTask_description(task.task_description);
         setTask_note(task.task_note);
         // @ts-ignore
-        setTask_start_date(Date.parse(project.start_project_date));
+        setTask_start_date(Date.parse(task.task_start_date));
         // @ts-ignore
-        setTask_end_date(Date.parse(project.end_project_date));
+        setTask_end_date(Date.parse(task.task_end_date));
+    }
+
+    const addTaskToProject = async (e:any) => {
+        const resp = await axios.post<Project>("http://52.14.40.145:8080/api/project/addtask/"+projectToAdd+"/"+e);
+        console.log(resp.data)
+        if (resp.data.project_id !== 0) {
+            setWarning(resp.data.project_name + " Was Updated!! ")
+        } else {
+            setWarning("Project Couldn't be Updated!! something went wrong!!!")
+        }
     }
 
 
     const renderUpdateTaskForm = () : JSX.Element => {
         console.log("Update Task Form Called!!")
         return (
-            <div  key={task_id}>
+            <div className={"border border-info mx-auto"}  key={task_id}>
                 <div>
                     <form onSubmit={updateTask}>
                         <h3>Update Task!</h3>
@@ -109,6 +120,13 @@ const _AdminAllTasks: React.FunctionComponent<AdminAllTasksProps> = (props)=> {
                         </div>
                         <br/>
                         <input type="submit" className="form-control btn btn-primary btn-block" value={"Update Project"}/>
+                        <div className="form-group">
+                            <label>Project ID</label>
+                            <input type="number" className="form-control" onChange={(e) => setProjectToAdd(e.target.value)}
+                                   name="project_id" value={projectToAdd} required/>
+                            <br/>
+                            <Button onClick={ ()=> addTaskToProject(task_id)} variant="primary" > Add Task To Project</Button>
+                        </div>
                     </form>
                 </div>
             </div>

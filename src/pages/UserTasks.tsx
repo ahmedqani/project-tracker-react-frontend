@@ -35,8 +35,8 @@ const _UserTasks: React.FunctionComponent<UserTasksProps> = (props)=> {
 
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/task/update/`;
-    const localDBUrlUserProjectsTasks = `http://localhost:8090/api/users/`;
+    const localDBUrl = `http://52.14.40.145:8080/api/task/update/`;
+    const localDBUrlUserProjectsTasks = `http://52.14.40.145:8080/api/users/`;
 
     let fullUser:FullUserProjectTasks = {
         email: "",
@@ -121,14 +121,16 @@ const _UserTasks: React.FunctionComponent<UserTasksProps> = (props)=> {
                                 <input type="text" className="form-control" onChange={(e) => setTask_note(e.target.value)}
                                         name="task_note" required/>
                             </div>
-                            <Button onClick={ ()=> {
-                                taskToFinish.task_id = task.task_id;
-                                taskToFinish.task_description = task.task_description;
-                                taskToFinish.task_start_date = task.task_start_date;
-                                taskToFinish.task_end_date = task.task_end_date;
-                                taskToFinish.task_note = task_note;
-                                finishTask(taskToFinish);
-                            }} variant="primary" >Finish Task</Button>
+                            {task.task_note !== ""? <Button>Finished</Button> :
+                                <Button onClick={ ()=> {
+                                    taskToFinish.task_id = task.task_id;
+                                    taskToFinish.task_description = task.task_description;
+                                    taskToFinish.task_start_date = task.task_start_date;
+                                    taskToFinish.task_end_date = task.task_end_date;
+                                    taskToFinish.task_note = task_note;
+                                    finishTask(taskToFinish);
+                                }} variant="primary" >Finish Task</Button>
+                            }
                         </Card.Body>
                     </Card>
                 </Col>

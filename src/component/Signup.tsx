@@ -18,7 +18,7 @@ const _Signup: React.FunctionComponent<SignupProps> = (props) => {
     const [lastname, setLastname] = useState("");
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/users/save`;
+    const localDBUrl = `http://52.14.40.145:8080/api/users/save`;
     const signUpUser = async (e: any) => {
         e.preventDefault()
         let user: User = {

@@ -20,7 +20,7 @@ const _NewTask: React.FunctionComponent<NewTaskProps> = (props) => {
     const [task_end_date, setTask_end_date] = useState(new Date());
     const [warning, setWarning] = useState("");
 
-    const localDBUrl = `http://localhost:8090/api/task/save`;
+    const localDBUrl = `http://52.14.40.145:8080/api/task/save`;
     const saveTask = async (e: any) => {
         e.preventDefault()
         let task: any = {

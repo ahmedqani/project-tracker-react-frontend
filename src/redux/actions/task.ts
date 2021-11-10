@@ -2,8 +2,7 @@ import axios from "axios";
 import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 
-//const urlApi = `http://52.14.40.145:8080/api/project/all` ;
-const localDBUrl = `http://localhost:8090/api/task/all`;
+const urlApi = `http://52.14.40.145:8080/api/task/all` ;
 
 export interface Task{
     task_id: number;
@@ -19,7 +18,7 @@ export interface FetchAllTasksAction {
 
 export const fetchAllTasks = () => {
     return async (dispatch: Dispatch) => {
-        const resp = await axios.get<Task[]>(localDBUrl)
+        const resp = await axios.get<Task[]>(urlApi)
         dispatch<FetchAllTasksAction>({
             type: ActionTypes.fetchaAllTasks,
             payload: resp.data

@@ -3,8 +3,7 @@ import {Dispatch} from "redux";
 import {ActionTypes} from "./types";
 import {User} from "./users";
 
-const urlApi = `http://52.14.40.145:8080/api/users/all` ;
-const localDBUrl = `http://localhost:8090/api/users/`;
+const urlApi = `http://52.14.40.145:8080/api/users/` ;
 
 export interface LoginUserAction{
     type: ActionTypes.login;
@@ -23,7 +22,7 @@ export interface LoginType{
 export const loginUser = (user:LoginType) => {
     return async (dispatch: Dispatch) => {
         console.log("In the Action Login !!!"+user)
-        const resp = await axios.post<User>(localDBUrl+"login",user)
+        const resp = await axios.post<User>(urlApi+"login",user)
         sessionStorage.setItem("currentUser", JSON.stringify(resp.data))
         sessionStorage.setItem("logged", "true")
         console.log(sessionStorage.getItem("currentUser"))
