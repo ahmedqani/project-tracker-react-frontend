@@ -17,7 +17,7 @@ class _App extends React.Component<AppProps>{
         username: "",
         password: ""
     }
-
+//User Pics
     renderPic(user:User){
         if (user.profpic == null){
             return "https://ptracker-java-react.s3.us-east-2.amazonaws.com/images/profile.png";
